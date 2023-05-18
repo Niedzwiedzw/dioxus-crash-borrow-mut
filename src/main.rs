@@ -6,15 +6,15 @@ fn main() {
 
 pub fn Counter(cx: Scope) -> Element {
     let counter = use_shared_state::<u32>(cx).expect("counter not initialized");
-    cx.render(rsx! { div { class: "Counter", "current: {counter.read()} (click to update)" } })
+    cx.render(rsx! { div { class: "Counter", "current: {counter.read()}" } })
 }
 
 fn CounterDropdown(cx: Scope) -> Element {
     let counter = use_shared_state::<u32>(cx).expect("counter not initialized");
     let controller_content = |open: bool| {
         let indicator = match open {
-            true => "/\\",
-            false => "\\/",
+            true => "close /\\",
+            false => "open \\/",
         };
         cx.render(rsx! {
             Counter {}
@@ -23,11 +23,11 @@ fn CounterDropdown(cx: Scope) -> Element {
     };
     let dropdown_content = || {
         cx.render(rsx! {
-            div { onclick: |_| {
+            button { onclick: |_| {
                     let old = *counter.read();
                     *counter.write() = old + 1;
                 },
-                "increase"
+                "click to [+1]"
             }
         })
     };
