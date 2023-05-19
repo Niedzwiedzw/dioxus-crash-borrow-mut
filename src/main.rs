@@ -17,8 +17,11 @@ fn CounterDropdown(cx: Scope) -> Element {
             false => "open \\/",
         };
         cx.render(rsx! {
-            Counter {}
-            button { "{indicator}" }
+            Fragment {
+                // key: "{open}", // Uncomment this to 'fix' it :)
+                Counter {}
+                button {  "{indicator}" }
+            }
         })
     };
     let dropdown_content = || {
